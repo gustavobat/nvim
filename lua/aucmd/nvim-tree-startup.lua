@@ -1,15 +1,11 @@
 local function open_nvim_tree(data)
-  -- buffer is a directory
-  local directory = vim.fn.isdirectory(data.file) == 1
+  local is_directory = vim.fn.isdirectory(data.file) == 1
 
-  if not directory then
-    -- buffer is a real file on the disk
-    local real_file = vim.fn.filereadable(data.file) == 1
+  if not is_directory then
+    local is_real_file = vim.fn.filereadable(data.file) == 1
+    local is_unnamed = data.file == "" and vim.bo[data.buf].buftype == ""
 
-    -- buffer is a [No Name]
-    local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
-
-    if not real_file and not no_name then
+    if not is_real_file and not is_unnamed then
       return
     end
 
@@ -17,10 +13,7 @@ local function open_nvim_tree(data)
     require("nvim-tree.api").tree.toggle({ focus = false, find_file = true, })
   end
 
-  -- change to the directory
   vim.cmd.cd(data.file)
-
-  -- open the tree
   require("nvim-tree.api").tree.open()
 end
 
