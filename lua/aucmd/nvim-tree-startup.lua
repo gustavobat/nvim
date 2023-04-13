@@ -11,6 +11,7 @@ local function open_nvim_tree(data)
 
     -- open the tree, find the file but don't focus it
     require("nvim-tree.api").tree.toggle({ focus = false, find_file = true, })
+    return
   end
 
   vim.cmd.cd(data.file)
