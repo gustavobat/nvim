@@ -94,6 +94,23 @@ return {
       -- `nvim-cmp` supports additional completion capabilities, so broadcast that to servers
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+      -- Set env vars for ESP32 projects
+      local lspconfig = require('lspconfig')
+      local root_pattern = lspconfig.util.root_pattern
+
+      lspconfig.rust_analyzer.setup({
+        on_new_config = function(_, root_dir)
+          local some_pattern = root_pattern('sdkconfig.defaults.esp32')
+          if some_pattern(root_dir) then
+            local esp_idf_exports = vim.fn.getenv('HOME') .. '/export-esp.sh'
+            local lines = vim.fn.readfile(esp_idf_exports)
+            for _, line in ipairs(lines) do
+              local _, _, name, val = string.find(line, 'export%s([%u_]+)=(.*)')
+              vim.fn.setenv(name, val) -- This does not work for appending to path
+            end
+          end
+        end,
+      })
 
       lsp_zero.setup()
     end
