@@ -14,6 +14,9 @@ return {
       { 'williamboman/mason.nvim' },
       { 'williamboman/mason-lspconfig.nvim' },
 
+      -- Copilot
+      { 'github/copilot.vim' },
+
       -- Autocompletion
       { 'hrsh7th/nvim-cmp' },
       { 'folke/neodev.nvim' },
