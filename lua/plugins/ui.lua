@@ -94,5 +94,20 @@ return {
       }
       require("statuscol").setup(cfg)
     end
+  },
+  -- LSP progress
+  {
+    'j-hui/fidget.nvim',
+    config = function()
+      local options = {
+        text = {
+          spinner = 'dots'
+        },
+        fmt = {
+          stack_upwards = true
+        }
+      }
+      require('fidget').setup(options)
+    end
   }
 }
