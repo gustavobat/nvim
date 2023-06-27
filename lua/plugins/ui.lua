@@ -40,7 +40,7 @@ return {
     'nvim-lualine/lualine.nvim',
     config = function()
       require('lualine').setup({
-        extensions = { 'nvim-tree' },
+        extensions = { 'nvim-tree', 'toggleterm' },
       })
     end,
     dependencies = {
