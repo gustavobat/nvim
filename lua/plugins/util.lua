@@ -9,5 +9,9 @@ return {
   {
     'windwp/nvim-autopairs',
     config = function() require('nvim-autopairs').setup {} end
+  },
+  {
+    'johmsalas/text-case.nvim',
+    config = function() require('textcase').setup {} end
   }
 }
