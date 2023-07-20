@@ -98,6 +98,7 @@ return {
   -- LSP progress
   {
     'j-hui/fidget.nvim',
+    tag = "legacy",
     config = function()
       local options = {
         text = {
