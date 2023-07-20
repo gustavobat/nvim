@@ -9,5 +9,15 @@ return {
   {
     'windwp/nvim-autopairs',
     config = function() require('nvim-autopairs').setup {} end
-  }
+  },
+  {
+    'm4xshen/hardtime.nvim',
+    event = 'VeryLazy',
+    opts = {},
+    config = function()
+      require('hardtime').setup {
+        disable_mouse = false,
+      }
+    end
+  },
 }
