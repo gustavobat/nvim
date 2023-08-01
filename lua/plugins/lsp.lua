@@ -105,14 +105,14 @@ return {
 
       lspconfig.rust_analyzer.setup({
         on_new_config = function(_, root_dir)
-          local some_pattern = root_pattern('sdkconfig.defaults.esp32')
-          if some_pattern(root_dir) then
-            local esp_idf_exports = vim.fn.getenv('HOME') .. '/export-esp.sh'
-            local lines = vim.fn.readfile(esp_idf_exports)
-            for _, line in ipairs(lines) do
-              local _, _, name, val = string.find(line, 'export%s([%u_]+)=(.*)')
-              vim.fn.setenv(name, val) -- This does not work for appending to path
-            end
+          local is_esp = root_pattern('sdkconfig.defaults')
+          local is_rust = root_pattern('Cargo.toml')
+          if is_esp(root_dir) and is_rust(root_dir) then
+            -- Get the path to the ESP32 export file from '.env' file
+            local lines = vim.fn.readfile(root_dir .. '/.env')
+            local esp_idf_export_path = vim.fn.split(lines[1], '=')[2]
+            local source_cmd = 'source ' .. esp_idf_export_path
+            vim.fn.system(source_cmd)
           end
         end,
       })
