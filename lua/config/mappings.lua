@@ -21,6 +21,7 @@ nmap({ "N", "Nzzzv" })
 nmap({ "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]] })
 nmap({ 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true } })
 nmap({ 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true } })
+nmap({ '<esc>', [[:noh<cr><esc>]], { silent = true } })
 
 -- Disable space in normal/visual mode
 nmap({ '<Space>', '<Nop>', { silent = true } })
