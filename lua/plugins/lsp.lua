@@ -115,6 +115,17 @@ return {
             vim.fn.system(source_cmd)
           end
         end,
+        settings = {
+          ['rust-analyzer'] = {
+            checkOnSave = {
+              allFeatures = true,
+              overrideCommand = {
+                'cargo', 'clippy', '--workspace', '--message-format=json',
+                '--all-targets', '--all-features'
+              }
+            }
+          }
+        }
       })
 
       lsp_zero.setup()
