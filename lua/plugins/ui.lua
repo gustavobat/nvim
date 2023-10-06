@@ -73,7 +73,6 @@ return {
         reeval                 = false,  -- whether or not the string returned by lnumfunc should be reevaluated
         -- Builtin 'statuscolumn' options
         setopt                 = true,   -- whether to set the 'statuscolumn', providing builtin click actions
-        order                  = "FSNs", -- order of the fold, sign, line number and separator segments
         -- Click actions
         Lnum                   = builtin.lnum_click,
         FoldPlus               = builtin.foldplus_click,

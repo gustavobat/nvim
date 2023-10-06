@@ -15,6 +15,7 @@ return {
       { 'neovim/nvim-lspconfig' },
       { 'williamboman/mason.nvim' },
       { 'williamboman/mason-lspconfig.nvim' },
+      { 'jose-elias-alvarez/null-ls.nvim' },
 
       -- Copilot
       { 'github/copilot.vim' },
@@ -33,14 +34,34 @@ return {
       { 'rafamadriz/friendly-snippets' },
     },
     config = function()
-      local lsp_zero = require('lsp-zero')
+      local lsp_zero = require('lsp-zero').preset({})
       local cmp = require('cmp')
-      lsp_zero.preset("recommended")
       lsp_zero.nvim_workspace()
-      lsp_zero.ensure_installed({
-        'lua_ls',
-        'rust_analyzer',
-        'clangd',
+      lsp_zero.format_on_save({
+        format_opts = {
+          async = false,
+          timeout_ms = 10000,
+        },
+        servers = {
+          ['lua_ls'] = { 'lua' },
+          ['rust_analyzer'] = { 'rust' },
+          ['null-ls'] = { 'javascript', 'typescript' },
+        }
+      })
+
+      require('mason').setup({})
+      require('mason-lspconfig').setup({
+        ensure_installed = {},
+        handlers = {
+          lsp_zero.default_setup,
+        },
+      })
+      local null_ls = require("null-ls")
+      null_ls.setup({
+        sources = {
+          null_ls.builtins.formatting.prettier,
+          null_ls.builtins.diagnostics.eslint,
+        },
       })
 
       -- LSP settings
