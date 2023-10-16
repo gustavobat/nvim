@@ -45,7 +45,8 @@ return {
         servers = {
           ['lua_ls'] = { 'lua' },
           ['rust_analyzer'] = { 'rust' },
-          ['null-ls'] = { 'javascript', 'typescript' },
+          ['eslint'] = { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
+          ['null-ls'] = { 'javascript', 'typescript', 'sh', 'bash', 'html' },
         }
       })
 
@@ -60,7 +61,9 @@ return {
       null_ls.setup({
         sources = {
           null_ls.builtins.formatting.prettier,
-          null_ls.builtins.diagnostics.eslint,
+          null_ls.builtins.diagnostics.eslint_d,
+          null_ls.builtins.formatting.shfmt,
+          null_ls.builtins.diagnostics.shellcheck,
         },
       })
 
