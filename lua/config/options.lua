@@ -26,9 +26,11 @@ local options = {
 
   -- Ensure always 10 lines below the cursor
   scrolloff = 10,
+
+  -- Term GUI colors
+  termguicolors = true,
 }
 
 for key, value in pairs(options) do
   vim.opt[key] = value
 end
-
