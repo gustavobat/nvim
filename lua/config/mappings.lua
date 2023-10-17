@@ -71,6 +71,7 @@ end
 
 -- Toggle terminal
 nmap({ '<leader>tt', '<cmd>ToggleTerm direction=horizontal<cr>', { desc = '[T]erminal [T]oggle' } })
+nmap({ '<leader>tn', '<cmd>ToggleTerm 2<cr>', { desc = '[T]erminal [N]ew' } })
 
 -- Toggleterm
 function _G.set_terminal_keymaps()
