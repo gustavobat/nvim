@@ -55,7 +55,8 @@ if status_ok then
   nmap({ '<leader><space>', t.buffers, { desc = '[ ] Find existing buffers' } })
   nmap({ '<leader>/',
     function()
-      t.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+      local t_builtin = require('telescope.builtin')
+      t_builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
         winblend = 10,
         previewer = false,
       })
