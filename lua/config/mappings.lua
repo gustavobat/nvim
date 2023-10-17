@@ -40,8 +40,8 @@ nmap({ "<leader>fmt", vim.lsp.buf.format })
 -- See `:help telescope.builtin`
 local status_ok, t = pcall(require, 'telescope.builtin')
 if status_ok then
-  pcall(t.load_extension, 'fzf') -- Enable telescope fzf native, if installed
-
+  pcall(t.load_extension, 'fzf')            -- Enable telescope fzf native, if installed
+  pcall(t.load_extension, 'live_grep_args') -- Enable telescope live_grep_args, if installed
   nmap({ '<leader>sf', t.find_files, { desc = '[S]earch [F]iles' } })
   nmap({ '<leader>sh', t.help_tags, { desc = '[S]earch [H]elp' } })
   nmap({ '<leader>sw', t.grep_string, { desc = '[S]earch current [W]ord' } })
@@ -49,6 +49,7 @@ if status_ok then
   nmap({ '<leader>sd', t.diagnostics, { desc = '[S]earch [D]iagnostics' } })
   nmap({ '<leader>sv', t.git_files, { desc = '[S]earch [V]ersion Control' } })
   nmap({ '<leader>sh', t.help_tags, { desc = '[S]earch [H]elptags' } })
+  nmap({ '<leader>sc', require('telescope').extensions.live_grep_args.live_grep_args, { desc = '[S]earch [C]omposite' } })
 
   nmap({ '<leader>?', t.oldfiles, { desc = '[?] Find recently opened files' } })
   nmap({ '<leader><space>', t.buffers, { desc = '[ ] Find existing buffers' } })
