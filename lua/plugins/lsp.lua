@@ -35,8 +35,8 @@ return {
     },
     config = function()
       local lsp_zero = require('lsp-zero').preset({})
-      local cmp = require('cmp')
-      lsp_zero.nvim_workspace()
+      local lua_opts = lsp_zero.nvim_lua_ls()
+      require('lspconfig').lua_ls.setup(lua_opts)
       lsp_zero.format_on_save({
         format_opts = {
           async = false,
@@ -55,6 +55,9 @@ return {
         ensure_installed = {},
         handlers = {
           lsp_zero.default_setup,
+          lua_ls = function()
+            require('lspconfig').lua_ls.setup(lua_opts)
+          end,
         },
       })
       local null_ls = require("null-ls")
@@ -106,20 +109,21 @@ return {
         end, { desc = 'Format current buffer with LSP' })
       end)
 
+      local cmp = require('cmp')
       local cmp_select = { behavior = cmp.SelectBehavior.Select }
-      local cmp_mappings = lsp_zero.defaults.cmp_mappings({
-        ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
-        ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      cmp.setup({
+        sources = {
+          { name = 'nvim_lsp' },
+        },
+        mapping = cmp.mapping.preset.insert({
+          ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
+          ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          ['<Tab>'] = nil,
+          ['<S-Tab>'] = nil
+        })
       })
 
-      -- Disable completion with tab
-      cmp_mappings['<Tab>'] = nil
-      cmp_mappings['<S-Tab>'] = nil
-
-      lsp_zero.setup_nvim_cmp({
-        mapping = cmp_mappings
-      })
       -- `nvim-cmp` supports additional completion capabilities, so broadcast that to servers
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
